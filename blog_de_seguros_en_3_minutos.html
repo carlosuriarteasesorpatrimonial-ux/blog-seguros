@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguros en 3 Minutos | Tu Guía Rápida de Educación Financiera</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e', // Azul Marino Confiable
+                            emerald: '#059669', // Verde Jade
+                            emeraldDark: '#047857'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Progress Bar Smooth */
+        #reading-progress {
+            transition: width 0.1s ease-out;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Top Reading Bar (Global Progress) -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-200 z-50">
+        <div id="reading-progress" class="h-full bg-emerald-500 w-0"></div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-900 flex items-center justify-center text-emerald-400 font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-bolt text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-tight text-brand-900 block leading-tight">Seguros<span class="text-emerald-600">En3Min</span></span>
+                    <span class="text-[10px] text-slate-400 font-medium tracking-wide uppercase">Lecturas Financieras Express</span>
+                </div>
+            </div>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#articulos" class="hover:text-brand-900 transition-colors">Artículos</a>
+                <a href="#calculadora" class="hover:text-brand-900 transition-colors">Calculadora PPR</a>
+                <a href="#nosotros" class="hover:text-brand-900 transition-colors">¿Por qué 3 Minutos?</a>
+            </nav>
+
+            <!-- CTA Button Header -->
+            <div class="flex items-center space-x-3">
+                <button onclick="openModalWhatsApp('General')" class="hidden sm:inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Asesoría Express</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-slate-900 via-brand-900 to-slate-900 text-white py-16 sm:py-24 overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+            <span class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full mb-6 backdrop-blur-sm">
+                <i class="fa-regular fa-clock"></i>
+                <span>Cero paja • Conceptos claros • Respuestas rápidas</span>
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6 text-white">
+                Aprende a proteger tu dinero y pagar menos impuestos en <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">menos de 3 minutos</span>.
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-8 font-light">
+                Explicaciones sencillas y al grano sobre Retiro (PPR), Seguros de Vida y Gastos Médicos. Sin letras chiquitas ni términos confusos.
+            </p>
+
+            <!-- Newsletter Box -->
+            <div class="bg-white/10 p-2 sm:p-2.5 rounded-2xl max-w-lg mx-auto backdrop-blur-md border border-white/15 shadow-2xl">
+                <form id="hero-subscribe-form" onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-2">
+                    <input type="email" required placeholder="Tu correo electrónico..." class="w-full px-4 py-3 rounded-xl bg-white/90 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 font-medium">
+                    <button type="submit" class="w-full sm:w-auto whitespace-nowrap bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm transition-all flex items-center justify-center space-x-2 shadow-lg">
+                        <span>Recibir cápsulas</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </form>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 flex items-center justify-center space-x-4">
+                <span><i class="fa-solid fa-check text-emerald-400 mr-1"></i> 1 cápsula semanal</span>
+                <span><i class="fa-solid fa-check text-emerald-400 mr-1"></i> Sin Spam</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA (Grid with Sidebar) -->
+    <main id="articulos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- CATEGORIES FILTER TABS -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-8 no-scrollbar scroll-smooth">
+            <button onclick="filterCategory('all')" class="category-btn active bg-brand-900 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all shadow-sm">
+                🔥 Todos los temas
+            </button>
+            <button onclick="filterCategory('ppr')" class="category-btn bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                📈 Retiro y PPR
+            </button>
+            <button onclick="filterCategory('vida')" class="category-btn bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                🛡️ Vida y Ahorro
+            </button>
+            <button onclick="filterCategory('gmm')" class="category-btn bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                🏥 Gastos Médicos
+            </button>
+            <button onclick="filterCategory('patrimonial')" class="category-btn bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                🚗 Autos y Daños
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- ARTICLES LIST (8 cols) -->
+            <div class="lg:col-span-8 space-y-6" id="articles-container">
+                <!-- Articles dynamically generated via JS -->
+            </div>
+
+            <!-- SIDEBAR (4 cols) -->
+            <aside class="lg:col-span-4 space-y-8">
+
+                <!-- WIDGET 1: CALCULADORA EXPRESS PPR -->
+                <div id="calculadora" class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl -mr-6 -mt-6"></div>
+                    <div class="flex items-center space-x-2 text-brand-900 mb-2">
+                        <i class="fa-solid fa-calculator text-emerald-600"></i>
+                        <h3 class="font-bold text-base">Calculadora PPR Express</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">Descubre cuánto dinero te puede devolver el SAT al año por ahorrar para tu retiro.</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Ingreso Mensual (MXN):</label>
+                            <input type="number" id="calc-income" value="45000" step="5000" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold text-slate-800">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Ahorro Mensual Destinado (%):</label>
+                            <input type="range" id="calc-percent" min="5" max="15" value="10" class="w-full accent-emerald-600 cursor-pointer" oninput="updateCalcDisplay(this.value)">
+                            <div class="flex justify-between text-[11px] text-slate-400 font-medium">
+                                <span>5%</span>
+                                <span id="percent-val" class="font-bold text-emerald-600">10% del ingreso</span>
+                                <span>15%</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 space-y-2">
+                            <div class="flex justify-between text-xs text-slate-600">
+                                <span>Ahorro Anual PPR:</span>
+                                <span id="res-savings" class="font-bold text-slate-800">$54,000</span>
+                            </div>
+                            <div class="flex justify-between text-xs text-slate-600">
+                                <span>Devolución Aprox. SAT:</span>
+                                <span id="res-refund" class="font-bold text-emerald-600 text-sm">$16,200/año</span>
+                            </div>
+                        </div>
+
+                        <button onclick="calculatePPR()" class="w-full bg-brand-900 hover:bg-slate-800 text-white font-semibold text-xs py-3 rounded-xl transition-colors shadow">
+                            Recibir proyección completa por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- WIDGET 2: GUARDADOS Y RECOMENDADOS -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+                    <h3 class="font-bold text-base text-brand-900 mb-4 flex items-center space-x-2">
+                        <i class="fa-regular fa-bookmark text-amber-500"></i>
+                        <span>Mis Lecturas Guardadas</span>
+                    </h3>
+                    <div id="saved-articles-list" class="space-y-3">
+                        <p class="text-xs text-slate-400 italic">Aún no has guardado ninguna lectura. Haz clic en el ícono de marcador en las tarjetas para leer después.</p>
+                    </div>
+                </div>
+
+                <!-- WIDGET 3: ASESORÍA PERSONALIZADA BANNER -->
+                <div class="bg-gradient-to-br from-brand-900 to-slate-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
+                        <i class="fa-solid fa-user-doctor text-xl"></i>
+                    </div>
+                    <h4 class="font-bold text-base mb-2">¿Tienes dudas sobre tu caso específico?</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                        Agenda una llamada de 15 minutos sin compromiso. Evaluamos tu situación fiscal y patrimonial actual.
+                    </p>
+                    <button onclick="openModalWhatsApp('Asesoría Directa')" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs py-3 rounded-xl transition-all shadow">
+                        <i class="fa-brands fa-whatsapp mr-1 text-sm"></i> Agendar Diagnóstico Express
+                    </button>
+                </div>
+
+            </aside>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-20 py-12 text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded-md bg-brand-900 flex items-center justify-center text-emerald-400 text-xs font-bold">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="font-bold text-slate-700">SegurosEn3Min.com</span>
+                <span>— Educación financiera sin rollos.</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-slate-800">Aviso de Privacidad</a>
+                <a href="#" class="hover:text-slate-800">Términos de Servicio</a>
+                <a href="#" class="hover:text-slate-800">AXA Seguros México</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL LECTURA RÁPIDA (ARTICLE MODAL) -->
+    <div id="article-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100 flex flex-col">
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between z-10">
+                <div class="flex items-center space-x-2">
+                    <span id="modal-category" class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full"></span>
+                    <span id="modal-read-time" class="text-xs text-slate-400 font-medium"></span>
+                </div>
+                <button onclick="closeArticleModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 sm:p-8 space-y-6">
+                <h2 id="modal-title" class="text-xl sm:text-2xl font-bold text-brand-900 leading-snug"></h2>
+                
+                <!-- Highlights Box -->
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center">
+                        <i class="fa-solid fa-list-check text-emerald-600 mr-2"></i> En resumen (Respuesta en 30 Segundos):
+                    </h4>
+                    <ul id="modal-bullets" class="space-y-2 text-sm text-slate-700">
+                        <!-- Bullets loaded via JS -->
+                    </ul>
+                </div>
+
+                <!-- Target Audience -->
+                <div class="flex items-start space-x-3 bg-brand-50 p-4 rounded-xl border border-brand-100">
+                    <i class="fa-solid fa-user-check text-brand-500 mt-1"></i>
+                    <div>
+                        <h5 class="text-xs font-bold text-brand-900 uppercase">¿Para quién es este seguro?</h5>
+                        <p id="modal-target" class="text-xs text-brand-800 mt-0.5"></p>
+                    </div>
+                </div>
+
+                <!-- Main Body Content -->
+                <div id="modal-body" class="text-sm text-slate-600 leading-relaxed space-y-3">
+                    <!-- Text loaded via JS -->
+                </div>
+
+                <!-- Real Life Example / Practical Benefit -->
+                <div class="bg-amber-50 rounded-xl p-4 border border-amber-200/70">
+                    <h5 class="text-xs font-bold text-amber-900 uppercase flex items-center">
+                        <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> Ejemplo Práctico:
+                    </h5>
+                    <p id="modal-example" class="text-xs text-amber-800 mt-1 leading-relaxed"></p>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-800">¿Quieres cotizar o resolver dudas de este tema?</p>
+                        <p class="text-[11px] text-slate-400">Te respondo personalmente en menos de 10 min por WhatsApp.</p>
+                    </div>
+                    <button id="modal-cta-btn" onclick="" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition-all shadow-md flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                        <span>Consultar mi caso</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Database of articles (Quick Reads < 5 min)
+        const articles = [
+            {
+                id: 1,
+                category: 'ppr',
+                categoryLabel: 'Retiro y PPR',
+                title: '¿Cómo hacer que el SAT te regrese dinero en tu Declaración Anual?',
+                snippet: 'El Plan Personal de Retiro (PPR) no solo asegura tu futuro: te permite deducir hasta el 10% de tus ingresos anuales bajo el Art. 151 del ISR.',
+                readTime: '⏱️ 2 min de lectura',
+                date: 'Hace 2 días',
+                bullets: [
+                    'Puedes deducir hasta el 10% de tu ingreso anual bruto (con tope de 5 UMAS anuales).',
+                    'Al presentar tu declaración en abril, el SAT te hace devolución en efectivo del impuesto cobrado sobre ese ahorro.',
+                    'El dinero crece libre de impuestos hasta tus 65 años.'
+                ],
+                target: 'Profesionistas con sueldo superior a $30,000 MXN al mes o personas que tributan por honorarios/RESICO.',
+                example: 'Si ganas $40,000 mensuales y aportas $4,000 a tu PPR al mes, en tu declaración anual el SAT podría devolverte entre $12,000 y $14,000 pesos en efectivo.',
+                body: '<p>Muchos profesionistas ven el PPR únicamente como un guardadito para cuando sean viejos. Sin embargo, su principal atractivo a corto plazo es la liquidez inmediata vía saldo a favor del SAT.</p><p>El artículo 151 de la Ley del ISR otorga esta ventaja fiscal para fomentar la cultura del ahorro formal ante el retiro de las nuevas generaciones.</p>'
+            },
+            {
+                id: 2,
+                category: 'vida',
+                categoryLabel: 'Vida y Ahorro',
+                title: 'Seguro de Vida con Ahorro: ¿Vale la pena o es mejor invertir por fuera?',
+                snippet: 'Entiende la diferencia entre un seguro puro de protección y un plan dotal donde recuperas el 100% de tus aportaciones más rendimiento.',
+                readTime: '⏱️ 3 min de lectura',
+                date: 'Hace 4 días',
+                bullets: [
+                    'Protege la meta financiera de tu familia si llegas a faltar o sufres invalidez.',
+                    'Si nada ocurre al finalizar el plazo (ej. 10 años), recibes tu dinero acumulado ajustado a inflación.',
+                    'Excelente disciplina de ahorro garantizado libre de tentaciones.'
+                ],
+                target: 'Padres de familia con hijos menores de 15 años o personas con dependientes económicos directos.',
+                example: 'Ahorras $3,000 mensuales durante 10 años para la universidad de tu hijo. Durante esos 10 años tienes cobertura por $2 Millones de pesos. Si todo sale bien, a los 10 años cobras tu capital acumulado más ganancias.',
+                body: '<p>Un seguro de vida con ahorro no busca competir con las acciones del mercado de valores en cuanto a rendimiento bursátil, sino con el riesgo de la falta de tiempo.</p><p>Te garantiza que el dinero para la educación de tus hijos existirá sí o sí: ya sea porque tuviste el tiempo de ahorrarlo o porque la aseguradora pagó la suma garantizada.</p>'
+            },
+            {
+                id: 3,
+                category: 'gmm',
+                categoryLabel: 'Gastos Médicos',
+                title: 'Deducible y Coaseguro: La fórmula para no pagar de más en una emergencia',
+                snippet: 'Aprende a ajustar el deducible de tu Seguro de Gastos Médicos Mayores para reducir la prima anual hasta un 35%.',
+                readTime: '⏱️ 3 min de lectura',
+                date: 'Hace 1 semana',
+                bullets: [
+                    'A mayor deducible seleccionado, menor es el costo de tu póliza anual.',
+                    'El coaseguro es tu participación porcentual, pero siempre debe tener un "tope máximo".',
+                    'Aprovecha las alianzas de la aseguradora para eliminar el deducible en caso de accidentes.'
+                ],
+                target: 'Cualquier persona que busque contratar Gastos Médicos Mayores por primera vez o renovar su póliza actual.',
+                example: 'Si fijas un deducible de $30,000 pesos en lugar de $10,000, tu póliza de Gastos Médicos puede bajar de $28,000 a solo $18,000 pesos al año.',
+                body: '<p>El error más común al contratar un Seguro de Gastos Médicos es querer un deducible de $0 pesos. Esto encarece la póliza año con año de manera insostenible.</p><p>La clave para una póliza eficiente es usar un deducible medio-alto respaldado por un fondo de emergencia en débito.</p>'
+            },
+            {
+                id: 4,
+                category: 'patrimonial',
+                categoryLabel: 'Autos y Daños',
+                title: 'Seguro de Auto: 3 coberturas que debes exigir a tu agente',
+                snippet: 'No te quedes solo con "Cobertura Amplia". Revisa que tu póliza incluya estas 3 cláusulas clave contra imprevistos fatales.',
+                readTime: '⏱️ 2 min de lectura',
+                date: 'Hace 2 semanas',
+                bullets: [
+                    'Responsabilidad Civil en Exceso por Fallecimiento de Terceros (Mínimo $3 MDP).',
+                    'Cero Deducible por Robo Total.',
+                    'Auto sustituto por más de 10 días en reparación taller.'
+                ],
+                target: 'Conductores en ciudades de alto tráfico o que viajan frecuentemente por carretera.',
+                example: 'En un accidente grave donde desafortunadamente fallece un tercero, la ley de tránsito impone indemnizaciones de hasta $4 Millones de pesos. La cobertura estándar de auto no alcanza si no contrataste la extensión.',
+                body: '<p>Muchos cotizadores en línea ofrecen primas muy baratas eliminando coberturas legales críticas. Siempre verifica los montos de Responsabilidad Civil antes de guiarte solo por el precio final.</p>'
+            }
+        ];
+
+        let savedArticles = [];
+
+        // Render articles to main view
+        function renderArticles(filter = 'all') {
+            const container = document.getElementById('articles-container');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? articles 
+                : articles.filter(a => a.category === filter);
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-sm py-8 text-center">No hay artículos en esta categoría por el momento.</p>`;
+                return;
+            }
+
+            filtered.forEach(article => {
+                const isSaved = savedArticles.includes(article.id);
+                const card = document.createElement('article');
+                card.className = 'bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-brand-50 text-brand-900 text-[11px] font-bold px-3 py-1 rounded-full border border-brand-100">${article.categoryLabel}</span>
+                            <div class="flex items-center space-x-3 text-xs text-slate-400">
+                                <span>${article.readTime}</span>
+                                <button onclick="toggleSaveArticle(event, ${article.id})" class="hover:text-amber-500 transition-colors">
+                                    <i class="${isSaved ? 'fa-solid' : 'fa-regular'} fa-bookmark text-base ${isSaved ? 'text-amber-500' : ''}"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h3 onclick="openArticleModal(${article.id})" class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors cursor-pointer mb-2">
+                            ${article.title}
+                        </h3>
+                        <p class="text-slate-600 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-4">
+                            ${article.snippet}
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
+                        <span class="text-slate-400">${article.date}</span>
+                        <button onclick="openArticleModal(${article.id})" class="text-emerald-600 font-bold hover:text-emerald-700 flex items-center space-x-1">
+                            <span>Leer en 2 min</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Category Filter logic
+        function filterCategory(cat) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-900', 'text-white', 'active');
+                btn.classList.add('bg-white', 'text-slate-600');
+            });
+            event.target.classList.remove('bg-white', 'text-slate-600');
+            event.target.classList.add('bg-brand-900', 'text-white', 'active');
+            renderArticles(cat);
+        }
+
+        // Article Modal Open
+        function openArticleModal(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+
+            document.getElementById('modal-category').innerText = article.categoryLabel;
+            document.getElementById('modal-read-time').innerText = article.readTime;
+            document.getElementById('modal-title').innerText = article.title;
+            document.getElementById('modal-target').innerText = article.target;
+            document.getElementById('modal-example').innerText = article.example;
+            document.getElementById('modal-body').innerHTML = article.body;
+
+            const bulletsContainer = document.getElementById('modal-bullets');
+            bulletsContainer.innerHTML = '';
+            article.bullets.forEach(bullet => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start space-x-2';
+                li.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mt-1 text-xs"></i><span>${bullet}</span>`;
+                bulletsContainer.appendChild(li);
+            });
+
+            document.getElementById('modal-cta-btn').onclick = () => openModalWhatsApp(article.title);
+
+            document.getElementById('article-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeArticleModal() {
+            document.getElementById('article-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Save Article for Later
+        function toggleSaveArticle(event, id) {
+            event.stopPropagation();
+            if (savedArticles.includes(id)) {
+                savedArticles = savedArticles.filter(item => item !== id);
+            } else {
+                savedArticles.push(id);
+            }
+            renderArticles();
+            updateSavedArticlesWidget();
+        }
+
+        function updateSavedArticlesWidget() {
+            const widget = document.getElementById('saved-articles-list');
+            if (savedArticles.length === 0) {
+                widget.innerHTML = `<p class="text-xs text-slate-400 italic">Aún no has guardado ninguna lectura. Haz clic en el ícono de marcador en las tarjetas para leer después.</p>`;
+                return;
+            }
+
+            widget.innerHTML = '';
+            savedArticles.forEach(id => {
+                const article = articles.find(a => a.id === id);
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between text-xs p-2 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer';
+                item.onclick = () => openArticleModal(article.id);
+                item.innerHTML = `
+                    <span class="font-medium text-slate-700 truncate max-w-[200px]">${article.title}</span>
+                    <i class="fa-solid fa-arrow-right text-emerald-600 text-[10px]"></i>
+                `;
+                widget.appendChild(item);
+            });
+        }
+
+        // PPR Interactive Calculator
+        function updateCalcDisplay(val) {
+            document.getElementById('percent-val').innerText = `${val}% del ingreso`;
+            calculatePPR();
+        }
+
+        function calculatePPR() {
+            const income = parseFloat(document.getElementById('calc-income').value) || 0;
+            const percent = parseFloat(document.getElementById('calc-percent').value) || 10;
+
+            const monthlySavings = income * (percent / 100);
+            const annualSavings = monthlySavings * 12;
+
+            // Estimación promedio de devolución ISR (aprox 30% según tabulador promedio de $45k ingreso)
+            const estimatedRefund = annualSavings * 0.30;
+
+            document.getElementById('res-savings').innerText = `$${annualSavings.toLocaleString('es-MX')} MXN`;
+            document.getElementById('res-refund').innerText = `$${estimatedRefund.toLocaleString('es-MX')} MXN/año`;
+        }
+
+        // WhatsApp Direct Contact Trigger
+        function openModalWhatsApp(topic) {
+            const message = encodeURIComponent(`Hola Carlos, leí sobre "${topic}" en tu blog SegurosEn3Min y me gustaría agendar la asesoría breve de 15 minutos.`);
+            // Número de teléfono simulado o configurable
+            const whatsappUrl = `https://wa.me/5211234567890?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Handle Newsletter Form
+        function handleSubscribe(e) {
+            e.preventDefault();
+            alert('¡Gracias por suscribirte! Te hemos enviado la primera cápsula de 3 minutos a tu correo.');
+            document.getElementById('hero-subscribe-form').reset();
+        }
+
+        // Reading Progress Bar Listener
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('reading-progress').style.width = scrolled + '%';
+        });
+
+        // Initialize Page
+        window.onload = function() {
+            renderArticles();
+            calculatePPR();
+        };
+    </script>
+</body>
+</html>
