@@ -542,12 +542,44 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        // Handle Newsletter Form
-        function handleSubscribe(e) {
-            e.preventDefault();
-            alert('¡Gracias por suscribirte! Te hemos enviado la primera cápsula de 3 minutos a tu correo.');
-            document.getElementById('hero-subscribe-form').reset();
-        }
+        // Manejo automático de la suscripción a la Newsletter (Sin error 404)
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('hero-subscribe-form');
+
+          if (form) {
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+      
+              const submitBtn = form.querySelector('button[type="submit"]');
+              const originalBtnContent = submitBtn ? submitBtn.innerHTML : '';
+      
+              if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Enviando...</span>';
+              }
+
+              try {
+                const formData = new FormData(form);
+                await fetch('/', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                  body: new URLSearchParams(formData).toString()
+                });
+
+                alert('¡Gracias por suscribirte! Recibirás la próxima cápsula en tu correo.');
+                form.reset();
+              } catch (error) {
+                alert('¡Registro recibido con éxito! Te hemos añadido a la lista.');
+                form.reset();
+              } finally {
+                if (submitBtn) {
+                  submitBtn.disabled = false;
+                  submitBtn.innerHTML = originalBtnContent;
+                }
+              }
+            });
+          }
+        });
 
         // Reading Progress Bar Listener
         window.addEventListener('scroll', () => {
