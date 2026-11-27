@@ -590,10 +590,44 @@
         });
 
         // Initialize Page
-        window.onload = function() {
-            renderArticles();
-            calculatePPR();
-        };
+       // Carga dinámica de artículos desde articles.json
+  async function loadArticles() {
+    try {
+      const response = await fetch('./articles.json');
+      const articles = await response.json();
+      renderArticlesGrid(articles);
+    } catch (error) {
+      console.error('Error al cargar los artículos:', error);
+    }
+  }
+
+  // Renderizar las tarjetas en la cuadrícula
+  function renderArticlesGrid(articles) {
+    const gridContainer = document.getElementById('articles-grid');
+    if (!gridContainer) return;
+
+    gridContainer.innerHTML = articles.map(article => `
+      <article class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 hover:border-emerald-500/50 transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center text-xs text-slate-400 mb-3">
+            <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 font-medium">${article.category}</span>
+            <span>⏱️ ${article.readTime}</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">${article.title}</h3>
+          <p class="text-slate-300 text-sm mb-4 line-clamp-3">${article.summary}</p>
+        </div>
+        <button onclick="openModal('${article.id}')" class="w-full py-2.5 bg-slate-700 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors text-sm">
+          Leer cápsula
+        </button>
+      </article>
+    `).join('');
+  }
+
+  // Initialize Page
+  window.onload = function() {
+      loadArticles();
+      calculatePPR();
+  };
     </script>
 </body>
 </html>
